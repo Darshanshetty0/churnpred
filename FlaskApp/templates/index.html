@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-title">Admin Dashboard</div>
+        <div class="navbar-buttons">
+            <form action="{{ url_for('customer_info') }}" method="post" style="display:inline;">
+                <button type="submit" class="nav-button">Customer Info</button>
+            </form>
+            <form action="{{ url_for('churn_prediction') }}" method="post" style="display:inline;">
+                <button type="submit" class="nav-button">Churn Prediction</button>
+            </form>
+        </div>
+    </nav>
+    <div class="main-content">
+        <h1>Admin Dashboard</h1>
+        <!-- Add your customer update content here -->
+    </div>
+
+    <section class="form-section">
+        <form action="{{ url_for('retrieve') }}" method="post">
+            <label>Table:</label><br>
+            <input type="radio" id="courses" name="table" value="courses" required>
+            <label for="courses">Courses</label><br>
+            <input type="radio" id="instructors" name="table" value="instructors" required>
+            <label for="instructors">Instructors</label><br>
+            <input type="radio" id="student" name="table" value="CustomerInfo" required>
+            <label for="student">Students</label><br><br>
+            
+            <button type="submit">Done</button>
+        </form>
+    </section>
+    
+    <div>
+        {% if result is not none %}
+            <h2>Result: {{ result }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>

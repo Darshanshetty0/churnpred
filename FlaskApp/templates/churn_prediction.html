@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Churn Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-title">Admin Dashboard</div>
+        <div class="navbar-buttons">
+            <form action="{{ url_for('customer_info') }}" method="post" style="display:inline;">
+                <button type="submit" class="nav-button">Customer Info</button>
+            </form>
+            <form action="{{ url_for('churn_prediction') }}" method="post" style="display:inline;">
+                <button type="submit" class="nav-button">Churn Prediction</button>
+            </form>
+        </div>
+    </nav>
+    <div class="main-content">
+        <h1>Churn Prediction</h1>
+        <form action="{{ url_for('churn_prediction_predict') }}" method="post" class="form-container">
+            <input type="text" name="customer_age" placeholder="Customer Age">
+            <input type="text" name="gender" placeholder="Gender">
+            <input type="text" name="dependent_count" placeholder="Dependent Count">
+            <input type="text" name="education_level" placeholder="Education Level">
+            <input type="text" name="marital_status" placeholder="Marital Status">
+            <input type="text" name="income_category" placeholder="Income Category">
+            <input type="text" name="card_category" placeholder="Card Category">
+            <input type="text" name="months_on_book" placeholder="Months on Book">
+            <input type="text" name="total_relationship_count" placeholder="Total Relationship Count">
+            <input type="text" name="months_inactive_12_mon" placeholder="Months Inactive in Last 12 Months">
+            <input type="text" name="contacts_count_12_mon" placeholder="Contacts Count in Last 12 Months">
+            <input type="text" name="credit_limit" placeholder="Credit Limit">
+            <input type="text" name="total_revolving_bal" placeholder="Total Revolving Balance">
+            <input type="text" name="avg_open_to_buy" placeholder="Avg Open to Buy">
+            <input type="text" name="total_amt_chng_q4_q1" placeholder="Total Amount Change Q4 to Q1">
+            <input type="text" name="total_trans_amt" placeholder="Total Transaction Amount">
+            <input type="text" name="total_trans_ct" placeholder="Total Transaction Count">
+            <input type="text" name="total_ct_chng_q4_q1" placeholder="Total Count Change Q4 to Q1">
+            <input type="text" name="avg_utilization_ratio" placeholder="Avg Utilization Ratio">
+            <button type="submit" class="filter-button">Submit</button>
+        </form>
+    </div>
+    <div>
+        {% if result is not none %}
+            {%if result[0] == 1%}
+                <h1> The Customer may get Churned </h1>
+            {%else%}
+                <h1> The Customer may not get Churned </h1>
+            {%endif%}         
+        {%endif%}
+    </div>
+</body>
+</html>

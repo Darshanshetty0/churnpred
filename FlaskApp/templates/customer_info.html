@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-title">Admin Dashboard</div>
+        <div class="navbar-buttons">
+            <form action="{{ url_for('customer_info') }}" method="post" style="display:inline;">
+                <button type="submit" class="nav-button">Customer Info</button>
+            </form>
+            <form action="{{ url_for('churn_prediction') }}" method="post" style="display:inline;">
+                <button type="submit" class="nav-button">Churn Prediction</button>
+            </form>
+        </div>
+    </nav>
+    <div class="main-content">
+        <div class="filter-container">
+            <form action="{{ url_for('customer_insight') }}" method="post">
+                <select name="table" id="tableSelect">
+                    <option value="CustomerInfo">CustomerInfo</option>
+                    <option value="CustomerRelations">CustomerRelations</option>
+                    <option value="CustomerCredit">CustomerCredit</option>
+                    <!-- Add more options as needed -->
+                </select>
+                <button type="submit" class="filter-button">Select Table</button>
+            </form>
+            <form action="{{ url_for('customer_info') }}" method="post">
+                <input type="text" name="search" id="searchInput" placeholder="Search...">
+                <button type="submit" class="filter-button">Search</button>
+            </form>
+            <form action="{{ url_for('customer_info') }}" method="post">
+                <input type="hidden" name="filter" value="age">
+                <button type="submit" class="filter-button">Filter by Age</button>
+            </form>
+            <form action="{{ url_for('customer_info') }}" method="post">
+                <input type="hidden" name="filter" value="gender">
+                <button type="submit" class="filter-button">Filter by Gender</button>
+            </form>
+            <form action="{{ url_for('customer_info') }}" method="post">
+                <input type="hidden" name="filter" value="experience">
+                <button type="submit" class="filter-button">Filter by Experience</button>
+            </form>
+            <form action="{{ url_for('customer_info') }}" method="post">
+                <input type="hidden" name="filter" value="education">
+                <button type="submit" class="filter-button">Filter by Education</button>
+            </form>
+            <form action="{{ url_for('customer_info') }}" method="post">
+                <input type="hidden" name="filter" value="marital_status">
+                <button type="submit" class="filter-button">Filter by Marital Status</button>
+            </form>
+            <form action="{{ url_for('customer_info') }}" method="post">
+                <input type="hidden" name="filter" value="income">
+                <button type="submit" class="filter-button">Filter by Income</button>
+            </form>
+        </div>
+
+        {% if result is not none %}
+        <table>
+            {% if table=="CustomerInfo"%}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Experience</th>
+                    <th>Education</th>
+                    <th>Marital Status</th>
+                    <th>Income</th>
+                </tr>
+            </thead>
+            {% elif table=="CustomerRelations"%}
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Months on Book</th>
+                    <th>Total Relationship Count</th>
+                    <th>Months Inactive in Last 12 Months</th>
+                    <th>Contacts Count in Last 12 Months</th>
+                </tr>
+            </thead>
+            {% elif table=="CustomerCredit"%}
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Credit Limit</th>
+                    <th>Total Revolving Balance</th>
+                    <th>Avg Open to Buy</th>
+                    <th>Total Amount Change Q4 to Q1</th>
+                    <th>Total Transaction Amount</th>
+                    <th>Total Transaction Count</th>
+                    <th>Total Count Change Q4 to Q1</th>
+                    <th>Avg Utilization Ratio</th>
+                </tr>
+            </thead>
+            {% endif %}
+            <tbody>
+                {% for row in result %}
+                    <tr>
+                        {% for i in range(0,tr)%}
+                            <td>{{ row[i] }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No data available.</p>
+    {% endif %}
+        <!-- Add your customer info content here -->
+    </div>
+</body>
+</html>
